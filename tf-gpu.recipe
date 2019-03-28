@@ -33,5 +33,38 @@ From: marcc-hpc/tensorflow:1.8.0-gpu
 	sudo apt-get install cuda=9.0.176-1
 	sudo apt-get install libcudnn7-dev
 	sudo apt-get install libnccl-dev
-
-
+	export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+	export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+	sudo apt-get install build-essential
+	sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+	sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+	git clone https://github.com/opencv/opencv.git
+	cd opencv/
+	git checkout 3.4.0
+	cd ..
+	git clone https://github.com/opencv/opencv_contrib.git
+	cd opencv_contrib/
+	git checkout 3.4.0
+	cd ../opencv/
+	mkdir build
+	cd build
+	cmake -D CMAKE_BUILD_TYPE=RELEASE \
+		-D CMAKE_INSTALL_PREFIX=/usr/local \
+		-D INSTALL_PYTHON_EXAMPLES=ON \
+		-D INSTALL_C_EXAMPLES=OFF \
+		-D CMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs \
+		-D OPENCV_ENABLE_NONFREE=ON \
+		-D ENABLE_FAST_MATH=ON \
+		-D CUDA_FAST_MATH=ON \
+		-D CUDA_GENERATION=Pascal \
+		-D WITH_FFMPEG=1 \
+		-D WITH_CUDA=ON \
+		-D WITH_CUBLAS=1 \
+		-D WITH_OPENGL=ON \
+		-D WITH_TBB=ON \
+		-D WITH_LAPACK=OFF \
+		-D OPENCV_EXTRA_MODULES_PATH="../../opencv_contrib/modules" \
+		-D PYTHON3_EXECUTABLE=$(which python) \
+		-D BUILD_EXAMPLES=ON ..
+	make -j4
+	sudo make install
