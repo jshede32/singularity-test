@@ -1,0 +1,37 @@
+Bootstrap: shub
+From: marcc-hpc/tensorflow:1.8.0-gpu
+
+
+%post
+	su
+	apt-get install sudo
+	exit
+	sudo apt-get install vim
+	sudo apt-get install git
+	sudo apt-get install wget
+	sudo apt-get install ffmpeg
+	pip install pymongo
+	pip install geopy
+	pip install pandas
+	pip install keras
+	pip install PIL
+	pip install numpy
+	pip install scipy
+	pip install azure
+	pip install python-opencv
+	wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl2_2.1.4-1+cuda9.0_amd64.deb
+	wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+	sudo dpkg -i cuda-repo-ubuntu1604_9.0.176-1_amd64.deb
+	sudo dpkg -i libcudnn7_7.0.5.15-1+cuda9.0_amd64.deb
+	sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda9.0_amd64.deb
+	sudo dpkg -i libnccl2_2.1.4-1+cuda9.0_amd64.deb
+	sudo dpkg -i libnccl-dev_2.1.4-1+cuda9.0_amd64.deb
+	sudo apt-get update
+	sudo apt-get install cuda=9.0.176-1
+	sudo apt-get install libcudnn7-dev
+	sudo apt-get install libnccl-dev
+
+
